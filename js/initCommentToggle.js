@@ -1,19 +1,22 @@
 // Show/hide comments toggle
 export const initCommentToggle = () => {
-    const showHideBtn = document.querySelector('.show-hide');
-    const commentWrapper = document.querySelector('.comment-wrapper');
+    try {
+        const showHideBtn = document.querySelector('.show-hide');
+        const commentWrapper = document.querySelector('.comment-wrapper');
 
-    commentWrapper.style.display = 'none';
+        if (!showHideBtn || !commentWrapper) return;
 
-    showHideBtn.onclick = () => {
-        const showHideText = showHideBtn.textContent;
-        if (showHideText === 'Show comment') { 
-          showHideBtn.textContent = 'Hide comments';
-          commentWrapper.style.display = 'block';
-        } else {
-          showHideBtn.textContent = 'Show comments';
-          commentWrapper.style.display = 'none';
-        }
-    };
+        commentWrapper.style.display = 'none';
+
+        //fix the toggle problem
+        showHideBtn.addEventListener('click', () => {
+            const isHidden = commentWrapper.style.display === 'none';
+            showHideBtn.textContent = isHidden ? 'Hide comments' : 'Show comments';
+            commentWrapper.style.display = isHidden ? 'block' : 'none';
+        });
+    } catch (err) {
+        console.error("Comment toggle error:", err);
+
+    }
+
 }
-      

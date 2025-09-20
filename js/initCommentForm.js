@@ -1,32 +1,40 @@
 export const initCommentForm = () => {
-    const form = document.querySelector('.comment-form');
-    const nameField = document.querySelector('#name');
-    const commentField = document.querySelector('#comment');
-    const list = document.querySelector('.comment-container');
+    try {
+        const form = document.querySelector('.comment-form');
+        const nameField = document.querySelector('#name');
+        const commentField = document.querySelector('#comment');
+        const list = document.querySelector('.comment-container');
 
-    form.onsubmit = (e) => {
-        e.preventDefault();
+        if (!form || !nameField || !commentField || !list) return;
 
-        const nameValue = nameField.value.trim();
-        const commentValue = commentField.value.trim();
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        if (!nameValue || !commentValue) {
-            alert("Bitte fülle beide Felder aus.");
-            return;
-        }
+            const nameValue = nameField.value.trim();
+            const commentValue = commentField.value.trim();
 
-        const listItem = document.createElement('li');
-        const namePara = document.createElement('p');
-        const commentPara = document.createElement('p');
+            if (!nameValue || !commentValue) {
+                alert("Bitte fülle beide Felder aus.");
+                return;
+            }
 
-        namePara.textContent = nameValue;
-        commentPara.textContent = commentValue;
+            const listItem = document.createElement('li');
+            const namePara = document.createElement('p');
+            const commentPara = document.createElement('p');
 
-        listItem.appendChild(namePara);
-        listItem.appendChild(commentPara);
-        list.appendChild(listItem);
+            namePara.textContent = nameValue;
+            commentPara.textContent = commentValue;
 
-        nameField.value = '';
-        commentField.value = '';
-    };
-};
+            listItem.appendChild(namePara);
+            listItem.appendChild(commentPara);
+            list.appendChild(listItem);
+
+            nameField.value = '';
+            commentField.value = '';
+        });
+
+    } catch (err) {
+        console.error("Comment form error:", err);
+        alert("Could not submit your comment, please try again.");
+    }
+}
