@@ -59,7 +59,66 @@ Fix application code and answer the questions:
 > **What bad coding practices did you find? Why is it a bad practice and how did you fix it?**
 > 
 > _Present your findings here..._
->
+>#### my findings
+* removed all var and used const instead
+* added try/catch
+* used arrow functions
+* checked urls before fetching  
+```js
+const checkImage = async (url) => {
+    try {
+        const res = await fetch(url, { method: "HEAD" });
+        return res.ok ? url : "media/placeholder.jpg";
+    } catch {
+        return "media/placeholder.jpg";
+    }
+};
+```
+* removed .onclick and added .addEventListener to have not only one handler
+```js
+//old
+showHideBtn.onclick = function() {
+        var showHideText = showHideBtn.textContent;
+        if (showHideText === 'Show comment') { 
+          showHideBtn.textContent = 'Hide comments';
+          commentWrapper.style.display = 'block';
+        } else {
+          showHideBtn.textContent = 'Show comments';
+          commentWrapper.style.display = 'none';
+        }
+      };
+//new
+showHideBtn.addEventListener('click', () => {
+            const isHidden = commentWrapper.style.display === 'none';
+            showHideBtn.textContent = isHidden ? 'Hide comments' : 'Show comments';
+            commentWrapper.style.display = isHidden ? 'block' : 'none';
+        });
+```
+* relying on text of buttons, doesn't function if text changes
+```js
+//old
+        var showHideText = showHideBtn.textContent;
+        if (showHideText === 'Show comment') { 
+          showHideBtn.textContent = 'Hide comments';
+          commentWrapper.style.display = 'block';
+        } else {
+          showHideBtn.textContent = 'Show comments';
+          commentWrapper.style.display = 'none';
+        }
+  
+//new
+const isHidden = commentWrapper.style.display === 'none';
+            showHideBtn.textContent = isHidden ? 'Hide comments' : 'Show comments';
+            commentWrapper.style.display = isHidden ? 'block' : 'none';
+```
+* removed this in function
+```js
+//old
+        var searchKey = this.q.value.trim();
+
+//new
+        const searchKey = e.target.elements.q?.value.trim();
+```
 > ```js
 > console.log('Make use of markdown codesnippets to show and explain good/bad practices!')
 > ```
