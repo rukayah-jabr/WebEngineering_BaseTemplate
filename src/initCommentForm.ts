@@ -1,11 +1,19 @@
 export const initCommentForm = (): void => {
   try {
-    const form = document.querySelector('.comment-form');
-    const nameField = document.querySelector('#name');
-    const commentField = document.querySelector('#comment');
-    const list = document.querySelector('.comment-container');
+    const form = document.querySelector<HTMLFormElement>('.comment-form');
+    const nameField = document.querySelector<HTMLInputElement>('#name');
+    const commentField =
+      document.querySelector<HTMLTextAreaElement>('#comment');
+    const list = document.querySelector<HTMLUListElement>('.comment-container');
 
-    if (!form || !nameField || !commentField || !list) return;
+    if (
+      form === null ||
+      nameField === null ||
+      commentField === null ||
+      list === null
+    ) {
+      return;
+    }
 
     form.addEventListener('submit', (e: SubmitEvent) => {
       e.preventDefault();
@@ -13,7 +21,7 @@ export const initCommentForm = (): void => {
       const nameValue = nameField.value.trim();
       const commentValue = commentField.value.trim();
 
-      if (!nameValue || !commentValue) {
+      if (nameValue === '' || commentValue === '') {
         alert('Bitte fülle beide Felder aus.');
         return;
       }

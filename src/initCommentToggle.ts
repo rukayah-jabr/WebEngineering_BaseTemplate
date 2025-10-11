@@ -1,10 +1,11 @@
 // Show/hide comments toggle
 export const initCommentToggle = (): void => {
   try {
-    const showHideBtn = document.querySelector('.show-hide');
-    const commentWrapper = document.querySelector('.comment-wrapper');
+    const showHideBtn = document.querySelector<HTMLButtonElement>('.show-hide');
+    const commentWrapper =
+      document.querySelector<HTMLDivElement>('.comment-wrapper');
 
-    if (!showHideBtn || !commentWrapper) return;
+    if (showHideBtn === null || commentWrapper === null) return;
 
     commentWrapper.style.display = 'none';
 
