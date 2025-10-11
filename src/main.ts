@@ -8,4 +8,4 @@ initCommentToggle();
 initCommentForm();
 void bearFetcher();
 
-const huskyTest =   2;
+const huskyTest =     2;
