@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "lint": "eslint \"src/**/*.{ts,js}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js}\"",
+    "check": "npm run lint && npm run format:check && npm run build"
   },
   "keywords": [],
   "author": "",

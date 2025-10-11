@@ -58,12 +58,7 @@ const extractBears = async (wikitext: string): Promise<void> => {
       const binomialMatch = row.match(/\|binomial=(.*?)\n/);
       const imageMatch = row.match(/\|image=(.*?)\n/);
 
-      if (
-        nameMatch !== null &&
-        nameMatch !== undefined &&
-        binomialMatch !== undefined &&
-        imageMatch !== undefined
-      ) {
+      if (nameMatch !== null && binomialMatch !== null && imageMatch !== null) {
         const fileName = imageMatch[1].trim().replace('File:', '');
         const imageUrl = await fetchImageUrl(fileName);
 
