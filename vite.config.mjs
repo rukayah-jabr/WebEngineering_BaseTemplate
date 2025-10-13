@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-    root: ".",
+    //root: ".",
     base: "/WebEngineering_BaseTemplate/",   //für Pages
     build: {
     outDir: "dist" // Standard ist "dist", optional
