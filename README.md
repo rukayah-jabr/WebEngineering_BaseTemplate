@@ -146,7 +146,7 @@ Build the application with ``npm`` and a build and a dependency management tool 
 
 > 
 > _Insert GitHub Pages URL here......_
->
+>https://rukayah-jabr.github.io/WebEngineering_BaseTemplate/
 > 
 
 **ESLint Configurations**
