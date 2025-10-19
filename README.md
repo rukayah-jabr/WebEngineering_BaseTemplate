@@ -197,7 +197,10 @@ Additionally, refactor your project by encapsulating the comments section into a
 
 > 
 > _Present your findings here..._
->
+>* Überschrift (`font[size="7"]`) -> Farbe von weiß auf schwarz
+>* Hintergrund (`div.nav`, `article`, `footer`, `.secondary`) -> Hintergrund von grün auf helllila
+>* Textgröße (html) -> von 10px auf 12px
+
  
 
 ## 4. Migrate to a Frontend Framework
