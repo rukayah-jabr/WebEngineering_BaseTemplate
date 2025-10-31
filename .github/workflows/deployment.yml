@@ -42,4 +42,3 @@ jobs:
           publish_dir: dist
           force_orphan: true
           enable_jekyll: false
-
