@@ -5,12 +5,15 @@
 
     <p>
       Tall, lumbering, angry, dangerous. The real live bears of this world are
-      proud, independent creatures, self-serving and always on the hunt for food.
+      proud, independent creatures, self-serving and always on the hunt for
+      food.
     </p>
 
     <h3>Types of bear</h3>
     <table>
-      <caption>Comparison of wild and urban bear characteristics</caption>
+      <caption>
+        Comparison of wild and urban bear characteristics
+      </caption>
       <thead>
         <tr>
           <th scope="col">Bear Type</th>
@@ -74,22 +77,23 @@
     </aside>
 
     <!-- Platzhalter-Komponenten -->
-    <Comments />
-    <Bears />
+    <PostComments />
+    <ListBears />
   </article>
 </template>
 
 <script lang="ts">
-import Comments from './Comments.vue';
-import Bears from './Bears.vue';
+import PostComments from './PostComments.vue';
+import ListBears from './ListBears.vue';
 
 export default {
-  components: { Comments, Bears },
+  components: { PostComments, ListBears },
 };
 </script>
 
 <style scoped>
-img, audio {
+img,
+audio {
   display: block;
   margin: 0 auto;
 }
@@ -102,11 +106,12 @@ table {
   border-collapse: collapse;
   margin-bottom: 2rem;
 }
-th, td {
+th,
+td {
   padding: 10px;
   text-align: center;
 }
-th[scope="col"] {
+th[scope='col'] {
   border-bottom: 1px solid black;
 }
 tbody tr:nth-child(odd) {

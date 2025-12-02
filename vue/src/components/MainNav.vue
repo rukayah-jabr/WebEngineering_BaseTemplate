@@ -9,8 +9,13 @@
 
     <form class="search" @submit.prevent="highlightSearch">
       <label for="search" class="visually-hidden">Search Query</label>
-      <input id="search" type="search" v-model="query" placeholder="Search query">
-      <input type="submit" value="Go!">
+      <input
+        id="search"
+        v-model="query"
+        type="search"
+        placeholder="Search query"
+      />
+      <input type="submit" value="Go!" />
     </form>
   </nav>
 </template>
@@ -23,7 +28,7 @@ export default {
     const query = ref('');
 
     const highlightSearch = () => {
-      document.querySelectorAll('.highlight').forEach(el => {
+      document.querySelectorAll('.highlight').forEach((el) => {
         const parent = el.parentNode;
         if (!parent) return;
         parent.replaceChild(document.createTextNode(el.textContent ?? ''), el);
@@ -31,7 +36,10 @@ export default {
       });
 
       if (!query.value) return;
-      const regex = new RegExp(`(${query.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      const regex = new RegExp(
+        `(${query.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+        'gi'
+      );
 
       const walk = (node: Node) => {
         if (node.nodeType === Node.TEXT_NODE) {
@@ -39,10 +47,18 @@ export default {
           if (!nodeValue) return;
           if (regex.test(nodeValue)) {
             const span = document.createElement('span');
-            span.innerHTML = nodeValue.replace(regex, '<mark class="highlight">$1</mark>');
+            span.innerHTML = nodeValue.replace(
+              regex,
+              '<mark class="highlight">$1</mark>'
+            );
             (node as ChildNode).replaceWith(...span.childNodes);
           }
-        } else if (node.nodeType === Node.ELEMENT_NODE && !(node instanceof HTMLScriptElement) && !(node instanceof HTMLStyleElement) && !(node instanceof HTMLFormElement)) {
+        } else if (
+          node.nodeType === Node.ELEMENT_NODE &&
+          !(node instanceof HTMLScriptElement) &&
+          !(node instanceof HTMLStyleElement) &&
+          !(node instanceof HTMLFormElement)
+        ) {
           node.childNodes.forEach(walk);
         }
       };
@@ -51,6 +67,6 @@ export default {
     };
 
     return { query, highlightSearch };
-  }
+  },
 };
 </script>

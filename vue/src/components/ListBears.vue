@@ -2,8 +2,14 @@
   <section class="more_bears">
     <h3>More Bears</h3>
     <div v-for="bear in bears" :key="bear.name" class="bear">
-      <img :src="bear.image" :alt="'Image of ' + bear.name" style="width:200px; height:auto;">
-      <p><b>{{ bear.name }}</b> ({{ bear.binomial }})</p>
+      <img
+        :src="bear.image"
+        :alt="'Image of ' + bear.name"
+        style="width: 200px; height: auto"
+      />
+      <p>
+        <b>{{ bear.name }}</b> ({{ bear.binomial }})
+      </p>
       <p>Range: {{ bear.range }}</p>
     </div>
   </section>
@@ -46,7 +52,13 @@ export default {
         });
         const res = await fetch(`${baseUrl}?${params.toString()}`);
         const data = await res.json();
-        const page = Object.values(data.query.pages)[0] as any;
+
+        interface WikiImagePage {
+          imageinfo?: { url?: string }[];
+        }
+
+        const page = Object.values(data.query.pages)[0] as WikiImagePage;
+
         const imageUrl = page.imageinfo?.[0]?.url;
         return imageUrl ? await checkImage(imageUrl) : 'media/placeholder.jpg';
       } catch {
@@ -67,7 +79,12 @@ export default {
           if (nameMatch && binomialMatch && imageMatch) {
             const fileName = imageMatch[1].trim().replace('File:', '');
             const imageUrl = await fetchImageUrl(fileName);
-            result.push({ name: nameMatch[1], binomial: binomialMatch[1], image: imageUrl, range: 'TODO extract correct range' });
+            result.push({
+              name: nameMatch[1],
+              binomial: binomialMatch[1],
+              image: imageUrl,
+              range: 'TODO extract correct range',
+            });
           }
         }
       }
@@ -98,6 +115,6 @@ export default {
     });
 
     return { bears };
-  }
+  },
 };
 </script>

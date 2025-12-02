@@ -1,8 +1,8 @@
 <template>
-  <Header />
-  <Nav />
+  <AppHeader />
+  <MainNav />
   <main>
-    <Article />
+    <BlogArticle />
     <aside class="secondary">
       <h3>Related</h3>
       <ul>
@@ -14,20 +14,22 @@
       </ul>
     </aside>
   </main>
-  <Footer />
+  <AppFooter />
 </template>
 
 <script lang="ts">
-import Header from './components/Header.vue';
-import Nav from './components/Nav.vue';
-import Footer from './components/Footer.vue';
-import Comments from './components/Comments.vue';
-import Bears from './components/Bears.vue';
-import Article from './components/Article.vue';
-
+import AppHeader from './components/AppHeader.vue';
+import MainNav from './components/MainNav.vue';
+import AppFooter from './components/AppFooter.vue';
+import BlogArticle from './components/BlogArticle.vue';
 
 export default {
-  components: { Header, Nav, Footer, Comments, Article, Bears },
+  components: {
+    AppHeader,
+    MainNav,
+    AppFooter,
+    BlogArticle,
+  },
 };
 </script>
 

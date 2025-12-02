@@ -1,0 +1,1 @@
+{"root":["./src/main.ts","./src/shims-vue.d.ts","./src/app.vue","./src/components/appfooter.vue","./src/components/appheader.vue","./src/components/blogarticle.vue","./src/components/helloworld.vue","./src/components/listbears.vue","./src/components/mainnav.vue","./src/components/postcomments.vue"],"errors":true,"version":"5.9.3"}
