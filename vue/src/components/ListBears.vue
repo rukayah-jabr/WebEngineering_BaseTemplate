@@ -76,12 +76,13 @@ export default {
           const nameMatch = row.match(/\|name=\[\[(.*?)\]\]/);
           const binomialMatch = row.match(/\|binomial=(.*?)\n/);
           const imageMatch = row.match(/\|image=(.*?)\n/);
-          if (nameMatch && binomialMatch && imageMatch) {
-            const fileName = imageMatch[1].trim().replace('File:', '');
+          if (nameMatch?.[1] && binomialMatch?.[1] && imageMatch?.[1]) {
+            const fileName = imageMatch[1]!.trim().replace('File:', '');
             const imageUrl = await fetchImageUrl(fileName);
+
             result.push({
-              name: nameMatch[1],
-              binomial: binomialMatch[1],
+              name: nameMatch[1]!,
+              binomial: binomialMatch[1]!,
               image: imageUrl,
               range: 'TODO extract correct range',
             });
