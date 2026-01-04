@@ -12,7 +12,7 @@ EXPOSE 4000
 CMD ["npm", "run", "dev"]
 
 
-# Stage 2: Build
+# Stage 2: Build - als Platzhalter
 FROM node:20-alpine AS build
 
 WORKDIR /app
@@ -21,7 +21,6 @@ COPY package*.json ./
 RUN npm install --production
 
 COPY . .
-# No build step needed for Express, but stage exists ✔
 
 
 # Stage 3: Production
