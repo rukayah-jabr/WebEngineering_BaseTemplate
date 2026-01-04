@@ -28,92 +28,29 @@ interface Bear {
 export default {
   setup() {
     const bears = ref<Bear[]>([]);
-    const baseUrl = 'https://en.wikipedia.org/w/api.php';
-    const title = 'List_of_ursids';
+    
 
-    const checkImage = async (url: string): Promise<string> => {
-      try {
-        const res = await fetch(url, { method: 'HEAD' });
-        return res.ok ? url : 'media/placeholder.jpg';
-      } catch {
-        return 'media/placeholder.jpg';
-      }
-    };
-
-    const fetchImageUrl = async (fileName: string): Promise<string> => {
-      try {
-        const params = new URLSearchParams({
-          action: 'query',
-          titles: 'File:' + fileName,
-          prop: 'imageinfo',
-          iiprop: 'url',
-          format: 'json',
-          origin: '*',
-        });
-        const res = await fetch(`${baseUrl}?${params.toString()}`);
-        const data = await res.json();
-
-        interface WikiImagePage {
-          imageinfo?: { url?: string }[];
+    const fetchBears = async () => { 
+      try { 
+        const res = await fetch("http://localhost:4000/api/bears"); 
+       
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
         }
 
-        const page = Object.values(data.query.pages)[0] as WikiImagePage;
-
-        const imageUrl = page.imageinfo?.[0]?.url;
-        return imageUrl ? await checkImage(imageUrl) : 'media/placeholder.jpg';
-      } catch {
-        return 'media/placeholder.jpg';
-      }
-    };
-
-    const extractBears = async (wikitext: string) => {
-      const speciesTables = wikitext.split('{{Species table/end}}');
-      const result: Bear[] = [];
-
-      for (const table of speciesTables) {
-        const rows = table.split('{{Species table/row');
-        for (const row of rows) {
-          const nameMatch = row.match(/\|name=\[\[(.*?)\]\]/);
-          const binomialMatch = row.match(/\|binomial=(.*?)\n/);
-          const imageMatch = row.match(/\|image=(.*?)\n/);
-          if (nameMatch?.[1] && binomialMatch?.[1] && imageMatch?.[1]) {
-            const fileName = imageMatch[1]!.trim().replace('File:', '');
-            const imageUrl = await fetchImageUrl(fileName);
-
-            result.push({
-              name: nameMatch[1]!,
-              binomial: binomialMatch[1]!,
-              image: imageUrl,
-              range: 'TODO extract correct range',
-            });
-          }
-        }
-      }
-
-      bears.value = result;
-    };
-
-    const fetchBears = async () => {
-      try {
-        const params = new URLSearchParams({
-          action: 'parse',
-          page: title,
-          prop: 'wikitext',
-          section: '3',
-          format: 'json',
-          origin: '*',
-        });
-        const res = await fetch(`${baseUrl}?${params.toString()}`);
         const data = await res.json();
-        await extractBears(data.parse.wikitext['*']);
+
+        if (Array.isArray(data)) {
+          bears.value = data;
+        } else {
+          console.error("Unexpected response:", data);
+        }
       } catch (err) {
-        console.error('Error fetching bears:', err);
+        console.error("Error fetching bears:", err);
       }
     };
 
-    onMounted(() => {
-      fetchBears();
-    });
+    onMounted(fetchBears); 
 
     return { bears };
   },
